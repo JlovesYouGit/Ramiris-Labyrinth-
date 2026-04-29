@@ -323,6 +323,7 @@ class GHzIntensityQuantumFinder:
     
     def __init__(self):
         self.processor = GHzIntensityQuantumProcessor()
+        self.cluster_api = self.processor.cluster_api
         print(f"\n💫 GHz-INTENSITY QUANTUM WALLET FINDER READY")
         print(f"🎯 Target: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa")
         print(f"⚡ Maximum GHz intensity engaged")

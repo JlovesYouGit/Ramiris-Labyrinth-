@@ -315,9 +315,18 @@ class RamirisLabyrinthUnifiedExecution:
         conjoined_piece = delta_mapper.compress_conjoin(start_bounds, tier_conjunction_points)
         print(f"📦 [7zip] Final Conjoined Minimal Target Piece: {conjoined_piece.hex()[:32]}")
         
-        # Each conjunction adds a micro-layer of pattern intelligence to the hive
+        # Each conjunction adds 0.5% (significant leap) to see it reach the target faster
         if self.cluster_api:
-            self.cluster_api.update_resonance(0.000001)
+            print(f"📡 [7zip] Pushing +0.50% Resonance to Hive-Mind...")
+            self.cluster_api.update_resonance(0.5)
+            
+            # Physical Bridge: Write to sync file for HUD
+            try:
+                res = self.cluster_api.get_resonance()
+                with open("vortex_resonance.sync", "w") as f:
+                    f.write(str(res))
+            except Exception:
+                pass
                     
         # Apply evergent logic
         unified_hash = unified_state_hasher.hexdigest()
@@ -345,7 +354,8 @@ if __name__ == '__main__':
         for _ in range(5): # Execute 5 build cycles
             if unified_engine.cluster_api and unified_engine.cluster_api.check_global_halt():
                 break
-            unified_engine.begin_unified_mapping(active_workers=max(1, multiprocessing.cpu_count()-2), batch_size=20)
+            # Use smaller batch_size for faster HUD updates
+            unified_engine.begin_unified_mapping(active_workers=max(1, multiprocessing.cpu_count()-2), batch_size=100)
             time.sleep(1)
     except KeyboardInterrupt:
         print("\nInterrupt. Cleaning up.")

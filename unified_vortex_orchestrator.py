@@ -7,7 +7,8 @@ import json
 import psutil
 from collections import deque
 from concurrent.futures import ThreadPoolExecutor
-from multiprocessing.managers import BaseManager
+from multiprocessing.managers import BaseManager, SyncManager
+import multiprocessing
 import queue
 
 # Import the native quantum balancer to use its actual hardware probes
@@ -28,7 +29,8 @@ class UnifiedVortexOrchestrator:
         # Identifying heavy executable modules based on their naming patterns
         self.executable_patterns = [
             "breaker.py", "accelerator.py", "mapper.py", 
-            "finder.py", "recovery.py", "_vortex_satoshi.py"
+            "finder.py", "recovery.py", "_vortex_satoshi.py",
+            "scaler.py"
         ]
         
         # Ignored files that are pure utilities or libraries
@@ -42,14 +44,15 @@ class UnifiedVortexOrchestrator:
         self.is_running = True
         self.max_concurrent_nodes = max(1, psutil.cpu_count(logical=True) - 2)
         
-        # --- API Server Initialization ---
+        # --- SyncManager for Live Shared State ---
+        self.sync_manager = multiprocessing.Manager()
         self.work_queue = queue.Queue(maxsize=1000)
-        self.global_state = {
+        self.global_state = self.sync_manager.dict({
             "FOUND_KEY": False, 
             "CRACKED_BY": "", 
             "KEY": "",
-            "RESONANCE_SCORE": 0.0 # Your new 7zip Intelligence Metric
-        }
+            "RESONANCE_SCORE": 0.0
+        })
         
         # Initialize the global bounds (e.g. standard starting offset or loaded from disk)
         self.current_hive_offset = 0x6000000000000000000000000000000000000000000000000000000000000000
