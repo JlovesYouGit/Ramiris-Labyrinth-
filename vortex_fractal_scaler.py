@@ -13,7 +13,14 @@ class VortexFractalScaler:
     """
     def __init__(self, target_address):
         self.target_address = target_address
-        # Zero-Dependency Mode: Connect to API only if available, otherwise just use the bridge
+        # Ghost Exclusion: Skipping known/already-found landmarks
+        self.GHOST_EXCLUSION = [
+            "000000000000000000000000000000000000000000000002832ed74f2b5e35ee", # Puzzle 66
+            "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b", # Ghost: sha256("Genesis")
+            "0x1EE4a89D2518AeaB5D1c8d70e4F60EBb6ad02015",                        # B2 Shadow Ghost
+            "0000000000000000000000000000000000000000000000000000000000000001"  # Genesis Zero
+        ]
+        
         try:
             self.api = VortexClusterAPI()
         except:
