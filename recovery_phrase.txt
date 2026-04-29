@@ -1,0 +1,11 @@
+BIP39 RECOVERY PHRASES
+============================================================
+
+Credential: cred
+Target: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+
+12-word mnemonic (128-bit entropy):
+act abstract alarm absurd amazing alarm about actual abstract addict aim air
+
+24-word mnemonic (256-bit entropy):
+access alcohol actor alley above amazing almost agent account advance account alter agree above agree ability aisle act aerobic almost already across absent about
